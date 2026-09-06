@@ -1,4 +1,4 @@
-mkdir -p ~/dotfiles && cat << 'EOF' > ~/dotfiles/bootstrap.sh
+cat << 'EOF' > ~/dotfiles/bootstrap.sh
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -35,17 +35,25 @@ CONFIG
 # 4. Установка бинарника Starship
 curl -sS https://starship.rs/install.sh | sh -s -- -y                                      # Установка starship в /usr/local/bin
 
-# 5. Применение конфига starship.toml
+# 5. Применение конфига starship.toml (однострочный компактный формат)
 mkdir -p ~/.config
 cat << 'CONFIG' > ~/.config/starship.toml
+add_newline = false
+
 format = """
+$time\
 $directory\
 $git_branch\
 $git_status\
 $kubernetes\
 $cmd_duration\
-$line_break\
 $character"""
+
+[time]
+disabled = false
+format = "[$time]($style) "
+time_format = "%T"
+style = "bold dimmed white"
 
 [directory]
 truncation_length = 3
@@ -67,8 +75,8 @@ min_time = 2000
 format = "took [$duration](bold yellow) "
 
 [character]
-success_symbol = "[➜](bold green)"
-error_symbol = "[➜](bold red)"
+success_symbol = "[➜ ](bold green)"
+error_symbol = "[➜ ](bold red)"
 CONFIG
 
 # 6. Установка бинарника kubectl
