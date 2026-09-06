@@ -53,7 +53,7 @@ $character"""
 disabled = false
 format = "[$time]($style) "
 time_format = "%T"
-style = "bold dimmed white"
+style = "bold yellow"
 
 [directory]
 truncation_length = 3
